@@ -1,0 +1,27 @@
+{
+  "name": "discovery-marathon",
+  "version": "1.0.0",
+  "description": "Content developed during the Rocketseat Discovery Backend Marathon",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joelsonejr/discovery-marathon.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joelsonejr/discovery-marathon/issues"
+  },
+  "homepage": "https://github.com/joelsonejr/discovery-marathon#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
