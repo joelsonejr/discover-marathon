@@ -11,8 +11,17 @@ server.set('view engine', 'ejs')
 // 'use()': serve para adicionar configurações ao servidor
 server.use(express.static("public"))
 
+//usar o req.body - disponibiliza a requisição que vem com a codificação de um formulário do tipo post
+server.use(express.urlencoded({extended: true}))
+
 //routes 
 server.use(routes)
+
+
+//'listen' liga o servidor. recebe como argumento a porta desejada, e o que deve ser feito.
+server.listen(3000, () => {console.log('running')} ) 
+
+
 
 /* 
     Foi movido para o 'routes.js'    
@@ -25,10 +34,3 @@ server.get('/', (request, response) => {
     // '__dirname' aponta para o caminho absoluto do servidor.
     return response.sendFile(__dirname + '/views/index.html')
 }) */
-
-
-
-//'listen' liga o servidor. recebe como argumento a porta desejada, e o que deve ser feito.
-server.listen(3000, () => {console.log('rodando')} ) 
-
-
