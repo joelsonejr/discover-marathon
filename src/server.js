@@ -1,9 +1,15 @@
 const express = require("express") //método do node que me permite carregar pacotes da node modules.
 const server = express()
 const routes = require('./routes')
+const path = require('path')
 
 //utilizando o template engine
 server.set('view engine', 'ejs') 
+
+//Mudar a localização da pasta views
+server.set('views', path.join(__dirname, 'views'))
+
+
 
 //utilizando o express para criar a rota para os arquivos na pasta public
 //hablitar os arquivos estáticos
