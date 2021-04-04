@@ -9,8 +9,8 @@ let data = [
   {
     id: 2,
     name: "OneTwo Project",
-    "daily-hours": 3,
-    "total-hours": 47,
+    "daily-hours":3,
+    "total-hours":47,
     created_at: Date.now(),
   },
 ];
