@@ -16,13 +16,14 @@ module.exports = {
         /* como em JS acessar um objeto que não existe resulta em erro, foi utilizada a '?' para contornar esse problema. O que ela diz é: caso o elemento 'jobs[jobs.length -1] exista, continue (no caso, pegue o id dele). Caso não exista, não faça nada. 
         Em seguida, o '||' só será execuado caso o que está antes dele não ocorra.  */
         
-        jobs.push({
+        Job.create({
             id: lastId + 1,
             name: req.body.name,
             "daily-hours": req.body["daily-hours"],
             "total-hours": req.body["total-hours"],
             created_at: Date.now() // atribuindo a data de hoje
         })
+
         return res.redirect('/')
     },
 
