@@ -4,7 +4,8 @@
   "description": "Content developed during the Rocketseat Discovery Backend Marathon",
   "main": "src/server.js",
   "scripts": {
-    "dev": "nodemon ."
+    "dev": "nodemon .",
+    "init-db": "node src/db/init.js"
   },
   "repository": {
     "type": "git",
