@@ -1,5 +1,5 @@
-const sqlite3 = require("sqlite3");
-const { open } = require("sqlite"); // a utilização de {} indica para o JS que desejo ir dentro do sqlite, pegar a funcionalidade chamada 'open', e importar apenas ela.
+const sqlite3 = require('sqlite3');
+const { open } = require('sqlite'); // a utilização de {} indica para o JS que desejo ir dentro do sqlite, pegar a funcionalidade chamada 'open', e importar apenas ela.
 
 // o 'open' serve para abrir a conexão com o banco de dados. 
 // Ele está no pacote do 'sqlite'
@@ -9,7 +9,7 @@ const { open } = require("sqlite"); // a utilização de {} indica para o JS que
 // responsável por manipular os dados
 // faz a abertura da conexão com o DB
 module.exports = () => open({
-    filenames: "./database.sqlite", 
+    filename: "./database.sqlite", 
     driver: sqlite3.Database
   });
 

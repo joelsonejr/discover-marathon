@@ -23,7 +23,6 @@ await db.exec(`CREATE TABLE profile (
     hours_per_day INT,
     vacation_per_year INT,
     value_hour INT
-
 )`);
 
 //'DATETIME' informação do tipo hora-data
@@ -34,7 +33,7 @@ await db.exec(`CREATE TABLE jobs (
     total_hours INT, 
     created_at DATETIME 
 
-)`);
+)`)
 
 //Inserindo itens no banco de dados
 await db.run(`INSERT INTO profile (
@@ -43,8 +42,7 @@ await db.run(`INSERT INTO profile (
     monthly_budget,
     days_per_week, 
     hours_per_day, 
-    vacation_per_year, 
-    value_hour
+    vacation_per_year
 ) VALUES (
     "joelson", 
     "https://github.com/joelsonejr.png",
@@ -52,7 +50,7 @@ await db.run(`INSERT INTO profile (
     5,
     5,
     4
-);`);
+)`);
 
 await db.run(`INSERT INTO jobs(
     name,
@@ -65,7 +63,7 @@ await db.run(`INSERT INTO jobs(
     1,
     1618280762621 
 
-);`);
+)`);
 
 await db.run(`INSERT INTO jobs(
     name,
@@ -77,8 +75,7 @@ await db.run(`INSERT INTO jobs(
     3,
     47,
     1618280762621 
-
-);`);
+)`);
 
 await db.close(); //encerra a conexão com o banco de dados
     
