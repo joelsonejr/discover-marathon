@@ -1,13 +1,20 @@
-const Database = require("config");
+const Database = require("./config");
 
-Databse(); //inicia a conexão como banco de dados
+const InitDb = {
+   async init() {    
+
+// o 'await' será utilizado para que o JS só continue a executar o programa, quando o acesso a DB tenha terminado.
+// toda vez que o 'await' for utilizado no JS, ele precisa estar dentro de uma estrutura de função async.
+// o async informa para o JS que dentro dele haverão 'awaits', e  por conta deles, o JS terá de esperar.
+
+const db = await Database(); //inicia a conexão como banco de dados
 
 // o código foi passado entre crases para que se pudesse utilizar a quebra de linha
 // criando a tabela 'profile'
 // os textos em maiúsculo são comandos SQL
 // o banco de dados não aceita '-'. Por isso eles foram substituidos por underline
 
-Database.exec(`CREATE TABLE profile (
+await db.exec(`CREATE TABLE profile (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT, 
     avatar TEXT,
@@ -20,7 +27,7 @@ Database.exec(`CREATE TABLE profile (
 )`);
 
 //'DATETIME' informação do tipo hora-data
-Database.exec(`CREATE TABLE jobs (
+await db.exec(`CREATE TABLE jobs (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT, 
     daily_hours INT, 
@@ -30,24 +37,24 @@ Database.exec(`CREATE TABLE jobs (
 )`);
 
 //Inserindo itens no banco de dados
-Database.run(`INSERT INTO profile (
+await db.run(`INSERT INTO profile (
     name, 
     avatar, 
     monthly_budget,
-     days_per_week, 
-     hours_per_day, 
-     vacation_per_year, 
-     value_hour
+    days_per_week, 
+    hours_per_day, 
+    vacation_per_year, 
+    value_hour
 ) VALUES (
     "joelson", 
     "https://github.com/joelsonejr.png",
     3000,
     5,
     5,
-    4,
+    4
 );`);
 
-Database.run(`INSERT INTO jobs(
+await db.run(`INSERT INTO jobs(
     name,
     daily_hours,
     total_hours,
@@ -56,11 +63,11 @@ Database.run(`INSERT INTO jobs(
     "Pizazaria Guloso",
     2,
     1,
-    1618280762621, 
+    1618280762621 
 
 );`);
 
-Database.run(`INSERT INTO jobs(
+await db.run(`INSERT INTO jobs(
     name,
     daily_hours,
     total_hours,
@@ -69,11 +76,13 @@ Database.run(`INSERT INTO jobs(
     "OneTwo Project",
     3,
     47,
-    1618280762621, 
+    1618280762621 
 
 );`);
 
-Database.close(); //encerra a conexão com o banco de dados
+await db.close(); //encerra a conexão com o banco de dados
+    
+    }
+}
 
-
-
+InitDb.init()
