@@ -7,16 +7,16 @@ module.exports = {
         return res.render('job')
     },
 
-    save(req, res) {
+    async save(req, res) {
 
-        const jobs = Job.get()
+        const jobs = await Job.get()
 
         //req.body = { name: 'asdf', 'daily-hours': '0.5', 'total-hours': '4' }
         const lastId = jobs[jobs.length - 1]?.id || 0; 
         /* como em JS acessar um objeto que não existe resulta em erro, foi utilizada a '?' para contornar esse problema. O que ela diz é: caso o elemento 'jobs[jobs.length -1] exista, continue (no caso, pegue o id dele). Caso não exista, não faça nada. 
         Em seguida, o '||' só será execuado caso o que está antes dele não ocorra.  */
         
-        Job.create({
+        await Job.create({
             id: lastId + 1,
             name: req.body.name,
             "daily-hours": req.body["daily-hours"],
@@ -27,11 +27,11 @@ module.exports = {
         return res.redirect('/')
     },
 
-    show(req, res) {
+    async show(req, res) {
 
         //'params' são os parâmetros da requisição (as informaçoes que foram enviadas anexadas ao endereço html)
         const jobId = req.params.id 
-        const jobs = Job.get()
+        const jobs = await Job.get()
 
         const job = jobs.find(job => Number(job.id) === Number(jobId))
 
@@ -39,16 +39,16 @@ module.exports = {
             return res.send('Job not found')
         }
 
-        const profile = Profile.get()
+        const profile = await Profile.get()
 
         job.budget = JobUtils.calculateBudget(job, profile['value-hour'])
 
         return res.render('job-edit', { job })
     },
 
-    update(req, res){
+    async update(req, res){
         const jobId = req.params.id 
-        const jobs = Job.get()
+        const jobs = await Job.get()
 
         const job = jobs.find(job => Number(job.id) === Number(jobId))
 
