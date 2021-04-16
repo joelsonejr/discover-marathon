@@ -9,15 +9,15 @@ module.exports = {
 
     async save(req, res) {
 
-        const jobs = await Job.get()
+        // const jobs = await Job.get() - o BD já faz essa lógica
 
         //req.body = { name: 'asdf', 'daily-hours': '0.5', 'total-hours': '4' }
-        const lastId = jobs[jobs.length - 1]?.id || 0; 
+        // const lastId = jobs[jobs.length - 1]?.id || 0; - o BD já faz essa lógica
         /* como em JS acessar um objeto que não existe resulta em erro, foi utilizada a '?' para contornar esse problema. O que ela diz é: caso o elemento 'jobs[jobs.length -1] exista, continue (no caso, pegue o id dele). Caso não exista, não faça nada. 
         Em seguida, o '||' só será execuado caso o que está antes dele não ocorra.  */
         
         await Job.create({
-            id: lastId + 1,
+            // id: lastId + 1, - o BD já faz essa lógica
             name: req.body.name,
             "daily-hours": req.body["daily-hours"],
             "total-hours": req.body["total-hours"],
@@ -77,10 +77,10 @@ module.exports = {
         res.redirect('/job/' +jobId)
     },
 
-    delete(req, res){
+    async delete(req, res){
         const jobId = req.params.id 
 
-        Job.delete(jobId)
+        await Job.delete(jobId)
 
         return res.redirect('/')
     }
