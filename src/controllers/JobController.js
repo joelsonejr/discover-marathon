@@ -48,6 +48,10 @@ module.exports = {
 
     async update(req, res){
         const jobId = req.params.id 
+        
+/* 
+SERÁ FEITO PELO BD 
+
         const jobs = await Job.get()
 
         const job = jobs.find(job => Number(job.id) === Number(jobId))
@@ -55,7 +59,7 @@ module.exports = {
         if(!job) {
             return res.send('Job not found')
         }
-
+ */
         const updatedJob = {
             ...job,
             name: req.body.name,
@@ -63,16 +67,19 @@ module.exports = {
             'daily-hours': req.body['daily-hours']
         }
 
-        const newJobs = jobs.map(job => {
+       /*  
+       SERÁ FEITO PELO BD 
+
+       const newJobs = jobs.map(job => {
 
             if (Number(job.id) === Number(jobId)){
                 job = updatedJob
             }
 
             return job
-        })
+        } )*/
 
-        Job.update(newJobs)
+        Job.update(updatedJob, jobId)
 
         res.redirect('/job/' +jobId)
     },
