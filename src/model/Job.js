@@ -1,56 +1,49 @@
-const Database = require('../db/config')
-
+const Database = require("../db/config");
 
 module.exports = {
-   async get(){
-        const db = await Database()
+  async get() {
+    const db = await Database();
 
+    const jobs = await db.all(`SELECT *  FROM jobs`);
 
-        const jobs = await db.all(`SELECT *  FROM jobs`)
+    await db.close();
 
+    // como a arrow function só está fazendo um 'return', ao invés de colocar a palavra 'return' antes do que quero retornar, basta envolver o elemento em questão por '()'
+    // quando a arrow function possui a estrutura abaixo (um objeto dentro de parênteses), ela entende que os '()' não estão fazendo referência a uma função, mas sim a algo a ser retornado.
+    return jobs.map((job) => ({
+      id: job.id,
+      name: job.name,
+      "daily-hours": job.daily_hours,
+      "total-hours": job.total_hours,
+      created_at: job.created_at,
+    }));
+  },
 
-        await db.close()
+  async update(updatedJob, jobId) {
+    const db = await Database();
 
-        // como a arrow function só está fazendo um 'return', ao invés de colocar a palavra 'return' antes do que quero retornar, basta envolver o elemento em questão por '()'
-        // quando a arrow function possui a estrutura abaixo (um objeto dentro de parênteses), ela entende que os '()' não estão fazendo referência a uma função, mas sim a algo a ser retornado.
-        return jobs.map(job => ({ 
-            id: job.id, 
-            name: job.name,
-            "daily-hours": job.daily_hours,
-            "total-hours": job.total_hours,
-            created_at: job.created_at
-        }))
+    await db.run(`UPDATE jobs SET
+            name = "${updatedJob.name}",
+            daily_hours = ${updatedJob["daily-hours"]},
+            total_hours = ${updatedJob["total-hours"]}
+            WHERE id = ${jobId}
+        `);
 
-        
-    },
+    await db.close();
+  },
 
-    async update(newJob){
-        const db = await Database()
+  async delete(id) {
+    const db = await Database();
 
-        await db.run(`UPDATE jobs SET
-            name = "${newJob.name}",
-            daily_hours = ${newJob["daily-hours"]},
-            total_hours = ${newJob["total-hours"]},
-            created_at = ${newJob.created_at}
-        `)
+    await db.run(`DELETE FROM jobs WHERE id = ${id}`);
 
-        await db.close()
-    },
+    await db.close();
+  },
 
-    async delete(id){
-        const db = await Database()
+  async create(newJob) {
+    const db = await Database();
 
-        await db.run(`DELETE FROM jobs WHERE id = ${id}`)
-
-        await db.close()
-
-    },
-
-    async create(newJob){
-
-      const db = await Database()
-
-      await db.run(`INSERT INTO jobs (
+    await db.run(`INSERT INTO jobs (
           name, 
           daily_hours,
           total_hours,
@@ -60,9 +53,8 @@ module.exports = {
           ${newJob["daily-hours"]},
           ${newJob["total-hours"]},
           ${newJob.created_at}
-      )`)
+      )`);
 
-      await db.close()
-      
-    }
-}
+    await db.close();
+  },
+};
